@@ -1,6 +1,6 @@
 var http = require('http');
 var fs = require('fs');
-var index = fs.readFileSync( 'index.html');
+var index = fs.readFileSync( 'public/index.html');
 
 var SerialPort = require('serialport');
 const parsers = SerialPort.parsers;
@@ -23,14 +23,14 @@ var app = http.createServer(function(req, res) {
     res.writeHead(200, {'Content-Type': 'text/html'});
     res.end(index);
 });
-
-var io = require('socket.io').listen(app);
+console.log( 'server' );
+var io = require('socket.io')(app);
 
 io.on('connection', function(socket) {
-
+    console.log( 'socket' );
     socket.on('lights',function(data){
 
-        console.log( data );
+        console.log( data, 'server' );
 
         port.write( data.status );
 
@@ -38,4 +38,4 @@ io.on('connection', function(socket) {
 
 });
 
-app.listen(3000);
+app.listen(8081);
