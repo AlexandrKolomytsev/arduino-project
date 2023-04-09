@@ -1,14 +1,55 @@
 <template>
-  <div class="hello">
-    <button @click="test">test</button>
+  <div>
+    <v-container>
+      <v-btn
+          dark
+          color="primary"
+          v-bind="attrs"
+          v-on="on"
+          @click="test"
+      >
+        Super Test!!
+      </v-btn>
+      <v-carousel v-model="model">
+        <v-carousel-item
+            v-for="(color, i) in colors"
+            :key="color"
+        >
+          <v-sheet
+              :color="color"
+              height="100%"
+              tile
+          >
+            <v-row
+                class="fill-height"
+                align="center"
+                justify="center"
+            >
+              <div class="text-h2">
+                Slide {{ i + 1 }}
+              </div>
+            </v-row>
+          </v-sheet>
+        </v-carousel-item>
+      </v-carousel>
+    </v-container>
   </div>
 </template>
 
 <script>
 import io from "socket.io";
-
 export default {
   name: 'HelloWorld',
+  data: () => ({
+    model: 0,
+    colors: [
+      'primary',
+      'secondary',
+      'yellow darken-2',
+      'red',
+      'orange',
+    ],
+  }),
   mounted() {
     this.src();
     this.testMethods();
@@ -43,27 +84,8 @@ export default {
               console.log(error);
             });
       };
-
       getData();
     }
   }
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>
