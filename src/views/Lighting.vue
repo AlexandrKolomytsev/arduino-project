@@ -51,9 +51,6 @@ export default {
     colors: ['#1867c0', '#fb8c00', '#000000'],
     category: ['Development', 'Meetings', 'Slacking'],
   }),
-  /*mounted() {
-    this.today = new Date().toLocaleDateString().split('.').reverse().join('-');
-    alert( this.today );
-  }*/
+
 }
 </script>
