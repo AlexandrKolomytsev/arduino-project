@@ -5,13 +5,6 @@
         v-model="windowOpen"
         :label="curTextSwitch"
     />
-    <v-btn class="cur-temp--fixed">
-      10 °C
-      <v-tooltip
-          activator="parent"
-          location="end"
-      >Текущая температура</v-tooltip>
-    </v-btn>
     <ChartAirTemperature />
   </div>
 </template>
@@ -40,12 +33,6 @@ export default {
 .conditioning {
   margin: 20px 40px;
   position: relative;
-
-  .cur-temp--fixed {
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
 }
 h1 {
   margin-bottom: 20px;

@@ -1,0 +1,42 @@
+const http = require('http');
+const SerialPort = require('serialport');
+const Readline = SerialPort.parsers.Readline;
+const port = new SerialPort('COM3', {
+    baudRate: 9600,
+    dataBits: 8,
+    parity: 'none',
+    stopBits: 1,
+    flowControl: false
+});
+
+
+// Отправка запроса на Arduino
+port.write('get_temperature');
+
+// Обработка ответа от Arduino
+let dataTemp = 0
+const parser = port.pipe(new Readline());
+parser.on('data', (data) => {
+    console.log(data);
+    dataTemp = data
+});
+
+const server = http.createServer((req, res) => {
+    if (req.url === '/led') {
+        // отправляем ответ клиенту
+        res.writeHead(200, {
+            'Content-Type': 'text/plain',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+        });
+        res.end(dataTemp);
+    } else {
+        // отправляем ответ клиенту, если путь не '/led'
+        res.writeHead(404, { 'Content-Type': 'text/plain' });
+        res.end('Not found');
+    }
+});
+
+server.listen(3000, () => {
+    console.log('Server started on port 3000');
+});

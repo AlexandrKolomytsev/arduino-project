@@ -1,10 +1,17 @@
 <template>
   <div>
+    <v-btn class="cur-temp--fixed">
+      {{ curTemp }} °C
+      <v-tooltip
+          activator="parent"
+          location="end"
+      >Текущая температура</v-tooltip>
+    </v-btn>
     <v-card>
       <DxChart
           id="chart"
-          :data-source="populationData"
-          title="График температуры за весь день"
+          :data-source="populationData2"
+          title="График температуры за минуту"
       >
         <DxArgumentAxis :tick-interval="10">
           <DxLabel format="decimal"/>
@@ -23,6 +30,7 @@ import DxChart, {
   DxLabel,
   DxSeries,
 } from 'devextreme-vue/chart';
+import axios from "axios";
 export default {
   name: "ChartAirTemperature",
   components: {
@@ -107,12 +115,60 @@ export default {
         arg: '24:00',
         val: 5,
       }, ],
+      populationData2: [],
+      interval: '',
+      masTempInSec: [],
+      argCounter: 1,
+      curTemp: 0,
     }
   },
+  mounted() {
+    this.interval = setInterval(() => {
+      axios.post('http://localhost:3000/led', {
+        mode: 'no-cors',
+      })
+          .then((response) => {
+            console.log(response.data);
+            if (response.data > 10 && response.data < 50) {
+              this.curTemp = response.data
+              this.masTempInSec.push(response.data)
+              if (this.populationData2.length <= 59) {
+                this.populationData2.push({ arg: this.argCounter++, val: response.data });
+              } else {
+                this.populationData2.shift();
+                this.populationData2.push({ arg: this.argCounter++, val: response.data });
+                this.populationData2.forEach((item, count) => {
+                  item.arg--;
+                  if (count === 59) {
+                    this.argCounter--;
+                  }
+                });
+              }
+            }
+            if (response.data < 10 && response.data > 50) {
+              console.log('фигня')
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    }, 1000)
+  },
+  beforeDestroy() {
+    clearInterval(this.interval)
+  },
+  methods: {
+
+  }
 }
 </script>
 
 <style scoped lang="scss">
+.cur-temp--fixed {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
 #chart {
   height: 440px;
 }
