@@ -124,7 +124,7 @@ export default {
   },
   mounted() {
     this.interval = setInterval(() => {
-      axios.post('http://localhost:3000/led', {
+      axios.post('http://localhost:3000/temp', {
         mode: 'no-cors',
       })
           .then((response) => {

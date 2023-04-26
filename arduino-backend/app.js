@@ -22,7 +22,7 @@ parser.on('data', (data) => {
 });
 
 const server = http.createServer((req, res) => {
-    if (req.url === '/led') {
+    if (req.url === '/temp') {
         // отправляем ответ клиенту
         res.writeHead(200, {
             'Content-Type': 'text/plain',
@@ -31,7 +31,7 @@ const server = http.createServer((req, res) => {
         });
         res.end(dataTemp);
     } else {
-        // отправляем ответ клиенту, если путь не '/led'
+        // отправляем ответ клиенту, если путь не '/temp'
         res.writeHead(404, { 'Content-Type': 'text/plain' });
         res.end('Not found');
     }

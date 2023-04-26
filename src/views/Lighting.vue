@@ -1,6 +1,63 @@
 <template>
   <div class="Lighting">
-    <h1>Lighting</h1>
+    <h1>Освещение</h1>
+    <div class="buttons-wrapper">
+      <h2 class="buttons-description" align-self="center">Состояние света на текущий момент</h2>
+
+      <v-btn-toggle
+          class="toggle-wrapper"
+          v-model="text"
+          :rounded='false'
+          color="deep-purple-accent-3"
+          group
+      >
+        <v-btn value="left">
+          Фитосвет
+        </v-btn>
+
+        <v-btn value="center">
+          Дневной свет
+        </v-btn>
+
+        <v-btn value="right">
+          Свет выключен
+        </v-btn>
+
+      </v-btn-toggle>
+    </div>
+
+    <div class="cur-light-time">
+      <div>
+        <v-card
+            class="mx-auto"
+            color="green"
+            width="150px"
+        >
+          <v-card-text class="text-time">
+            07:00
+          </v-card-text>
+        </v-card>
+        <v-card-text>
+          Восход
+        </v-card-text>
+      </div>
+
+      <div>
+        <v-card
+            class="mx-auto"
+            color="blue "
+            width="150px"
+        >
+          <v-card-text class="text-time">
+            21:00
+          </v-card-text>
+        </v-card>
+        <v-card-text>
+          Закат
+        </v-card-text>
+      </div>
+    </div>
+
     <v-row>
       <v-col>
         <v-sheet height="500">
@@ -30,6 +87,8 @@
         </v-sheet>
       </v-col>
     </v-row>
+
+
   </div>
 </template>
 
@@ -50,7 +109,47 @@ export default {
     },
     colors: ['#1867c0', '#fb8c00', '#000000'],
     category: ['Development', 'Meetings', 'Slacking'],
+    text: 'center',
+    icon: 'justify',
+    toggle_none: null,
+    toggle_one: 0,
+    toggle_exclusive: 2,
+    toggle_multiple: [0, 1, 2],
   }),
 
 }
 </script>
+<style scoped lang="scss">
+.Lighting {
+  margin: 20px 40px;
+  .cur-light-time {
+    display: flex;
+    gap: 20px;
+    margin: 0 auto 20px;
+    justify-content: center;
+    .mx-auto {
+      margin: 0 !important;
+    }
+  }
+  .v-card__text {
+    text-align: center;
+    font-size: 18px;
+  }
+  .text-time {
+    font-size: 25px;
+    text-align: center;
+  }
+  .buttons-wrapper {
+    margin: 0 auto;
+    .buttons-description {
+      display: flex;
+      justify-content: center;
+    }
+    .toggle-wrapper {
+      margin: 30px auto;
+      display: flex;
+      justify-content: center;
+    }
+  }
+}
+</style>

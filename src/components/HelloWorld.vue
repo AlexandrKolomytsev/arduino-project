@@ -1,5 +1,15 @@
 <template>
   <div>
+    <v-btn @click="testApi">
+      Тест api
+    </v-btn>
+    <canvas
+        width="1000"
+        height="600"
+        class="canvas-grid"
+        ref="canvasGrid"
+    >
+    </canvas>
     <v-container>
       <v-carousel v-model="model">
         <v-carousel-item
@@ -44,13 +54,42 @@ export default {
   }),
   mounted() {
     this.src();
+    this.buildGrid()
   },
   methods: {
+    buildGrid () {
+      const context = this.$refs.canvasGrid.getContext('2d')
+      for (let x = 0.5; x < 800; x += 50) {
+        context.moveTo(x, 0)
+        context.lineTo(x, 800)
+      }
+
+      for (let y = 0.5; y < 800; y += 50) {
+        context.moveTo(0, y)
+        context.lineTo(800, y)
+      }
+
+      context.lineWidth = 1
+      context.globalAlpha = 1
+      context.strokeStyle = "rgba(255, 0, 0, 1)"
+      context.stroke()
+    },
     src() {
       let recaptchaScript = document.createElement('script');
       recaptchaScript.setAttribute('src', 'https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js');
       document.head.appendChild(recaptchaScript);
     },
+    testApi() {
+        axios.post('https://arduino-back-production.up.railway.app/', {
+          mode: 'no-cors',
+        })
+            .then((response) => {
+              console.log(response.data);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+      }
   }
 };
 </script>
