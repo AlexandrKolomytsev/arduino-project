@@ -1,38 +1,35 @@
-const http = require('http');
-const SerialPort = require('serialport');
+const http = require("http");
+const SerialPort = require("serialport");
 const Readline = SerialPort.parsers.Readline;
-const axios = require('axios');
-const port = new SerialPort('COM3', {
-    baudRate: 9600,
-    dataBits: 8,
-    parity: 'none',
-    stopBits: 1,
-    flowControl: false
+const axios = require("axios");
+const port = new SerialPort("COM3", {
+  baudRate: 9600,
+  dataBits: 8,
+  parity: "none",
+  stopBits: 1,
+  flowControl: false,
 });
 
-
 // Отправка запроса на Arduino
-port.write('get_temperature');
+port.write("get_temperature");
 
 // Обработка ответа от Arduino
-let dataTemp = 0
+let dataTemp = 0;
 const parser = port.pipe(new Readline());
-parser.on('data', (data) => {
-    console.log(data);
-    dataTemp = data
+parser.on("data", data => {
+  console.log(data);
+  dataTemp = data;
 });
 
 setInterval(() => {
-    console.log(dataTemp, 'dataTemp')
-    axios.post('https://arduino-back-production.up.railway.app/users', {
-        dataTemp: dataTemp.trim()
+  console.log(dataTemp, "dataTemp");
+  axios
+    .post("https://arduino-back-production.up.railway.app/users", {
+      dataTemp: dataTemp.trim(),
     })
-        .then(function (response) {
-        })
-        .catch(function (error) {
-        });
-}, 5000)
-
+    .then(function(response) {})
+    .catch(function(error) {});
+}, 2000);
 
 /*const server = http.createServer((req, res) => {
     if (req.url === '/temp') {
