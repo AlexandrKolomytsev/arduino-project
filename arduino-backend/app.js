@@ -1,6 +1,7 @@
 const http = require('http');
 const SerialPort = require('serialport');
 const Readline = SerialPort.parsers.Readline;
+const axios = require('axios');
 const port = new SerialPort('COM3', {
     baudRate: 9600,
     dataBits: 8,
@@ -21,7 +22,19 @@ parser.on('data', (data) => {
     dataTemp = data
 });
 
-const server = http.createServer((req, res) => {
+setInterval(() => {
+    console.log(dataTemp, 'dataTemp')
+    axios.post('https://arduino-back-production.up.railway.app/users', {
+        dataTemp: dataTemp.trim()
+    })
+        .then(function (response) {
+        })
+        .catch(function (error) {
+        });
+}, 5000)
+
+
+/*const server = http.createServer((req, res) => {
     if (req.url === '/temp') {
         // отправляем ответ клиенту
         res.writeHead(200, {
@@ -39,4 +52,4 @@ const server = http.createServer((req, res) => {
 
 server.listen(3000, () => {
     console.log('Server started on port 3000');
-});
+});*/

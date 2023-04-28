@@ -45,7 +45,7 @@
       <div>
         <v-card
             class="mx-auto"
-            color="blue "
+            color="blue"
             width="150px"
         >
           <v-card-text class="text-time">

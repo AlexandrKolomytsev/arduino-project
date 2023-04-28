@@ -124,7 +124,7 @@ export default {
   },
   mounted() {
     this.interval = setInterval(() => {
-      axios.post('http://localhost:3000/temp', {
+      axios.get('https://arduino-back-production.up.railway.app/', {
         mode: 'no-cors',
       })
           .then((response) => {
@@ -152,7 +152,7 @@ export default {
           .catch(function (error) {
             console.log(error);
           });
-    }, 1000)
+    }, 5000)
   },
   beforeDestroy() {
     clearInterval(this.interval)

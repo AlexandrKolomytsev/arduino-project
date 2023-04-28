@@ -3,6 +3,9 @@
     <v-btn @click="testApi">
       Тест api
     </v-btn>
+    <v-btn @click="testApiPost">
+      Тест api post
+    </v-btn>
     <canvas
         width="1000"
         height="600"
@@ -80,16 +83,26 @@ export default {
       document.head.appendChild(recaptchaScript);
     },
     testApi() {
-        axios.post('https://arduino-back-production.up.railway.app/', {
-          mode: 'no-cors',
-        })
-            .then((response) => {
-              console.log(response.data);
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
-      }
+      axios.get('http://localhost:3000/')
+          .then((response) => {
+            console.log(response.data);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    },
+    testApiPost() {
+      axios.post('https://arduino-back-production.up.railway.app/users', {
+        name: 'fedянин',
+        age: 'Iyyy',
+      })
+          .then((response) => {
+            console.log(response.data);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    }
   }
 };
 </script>
