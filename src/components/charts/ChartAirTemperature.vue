@@ -30,6 +30,7 @@ import DxChart, {
   DxSeries,
 } from "devextreme-vue/chart";
 import axios from "axios";
+import store from "../../store";
 export default {
   name: "ChartAirTemperature",
   components: {
@@ -161,6 +162,11 @@ export default {
             this.populationData2.push({ arg: i, val: Number(obj.dataTemp) });
           });
           console.log(this.populationData2);
+
+          const lastTemperature = this.populationData2[
+            this.populationData2.length - 1
+          ];
+          store.commit("setTemperature", lastTemperature);
 
           // if (response.data > 10 && response.data < 50) {
           //   this.curTemp = response.data

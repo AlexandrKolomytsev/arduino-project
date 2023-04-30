@@ -1,10 +1,7 @@
 <template>
   <div class="conditioning">
     <h1>Кондиционирование</h1>
-    <v-switch
-        v-model="windowOpen"
-        :label="curTextSwitch"
-    />
+    <v-switch v-model="windowOpen" :label="curTextSwitch" />
     <ChartAirTemperature />
   </div>
 </template>
@@ -13,9 +10,9 @@
 import ChartAirTemperature from "../components/charts/ChartAirTemperature";
 
 export default {
-  name: 'Conditioning',
+  name: "Conditioning",
   components: {
-    ChartAirTemperature
+    ChartAirTemperature,
   },
 
   data: () => ({
@@ -23,9 +20,9 @@ export default {
   }),
   computed: {
     curTextSwitch() {
-      return this.windowOpen ? "Форточка открыта" : "Форточка закрыта"
-    }
-  }
+      return this.windowOpen ? "Форточка открыта" : "Форточка закрыта";
+    },
+  },
 };
 </script>
 
@@ -33,7 +30,12 @@ export default {
 .conditioning {
   margin: 20px 40px;
   position: relative;
+  .v-input {
+    width: fit-content;
+    margin: 0 auto;
+  }
 }
+
 h1 {
   margin-bottom: 20px;
 }
