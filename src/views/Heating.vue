@@ -1,15 +1,22 @@
 <template>
   <div class="heating">
     <h1>Отопление</h1>
-    <v-btn-toggle class="toggle-wrapper" v-model="text" :rounded="false" group>
-      <v-btn value="minus">
-        -
-      </v-btn>
-      <span class="curr_temp" value="center"> {{ temp }} °C </span>
-      <v-btn value="plus">
-        +
-      </v-btn>
-    </v-btn-toggle>
+    <template v-if="temp">
+      <v-btn-toggle
+        class="toggle-wrapper"
+        v-model="text"
+        :rounded="false"
+        group
+      >
+        <v-btn value="minus">
+          -
+        </v-btn>
+        <span class="curr_temp" value="center"> {{ temp }} °C </span>
+        <v-btn value="plus">
+          +
+        </v-btn>
+      </v-btn-toggle>
+    </template>
     <ChartAirTemperature />
   </div>
 </template>
