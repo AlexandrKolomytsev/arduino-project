@@ -24,7 +24,8 @@ parser.on("data", data => {
 setInterval(() => {
   console.log(dataTemp, "dataTemp");
   axios
-    .post("https://arduino-back-production.up.railway.app/users", {
+    // .post("https://arduino-back-production.up.railway.app/users", {
+    .post("http://localhost:3000/users", {
       dataTemp: dataTemp.trim(),
     })
     .then(function(response) {})

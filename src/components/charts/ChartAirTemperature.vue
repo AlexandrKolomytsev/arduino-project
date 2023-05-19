@@ -150,7 +150,8 @@ export default {
   mounted() {
     this.interval = setInterval(() => {
       axios
-        .get("https://arduino-back-production.up.railway.app/", {
+        // .get("https://arduino-back-production.up.railway.app/", {
+        .get("http://localhost:8080/", {
           mode: "no-cors",
         })
         .then(response => {

@@ -13,6 +13,8 @@
         color="deep-purple-accent-3"
         group
       >
+        <v-switch v-model="bulbOn" @change="toggleBulb" />
+
         <v-btn value="left">
           Фитосвет
         </v-btn>
@@ -78,6 +80,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data: () => ({
     today: "2019-01-10",
@@ -100,9 +104,43 @@ export default {
     toggle_one: 0,
     toggle_exclusive: 2,
     toggle_multiple: [0, 1, 2],
+    bulbOn: null,
   }),
+  mounted() {
+    this.getCurrBulb();
+  },
+  methods: {
+    toggleBulb() {
+      axios
+        .post("http://localhost:3000/bulb")
+        .then(response => {})
+        .catch(error => {
+          console.log(error);
+        });
+      axios
+        .get("http://localhost:8080/toggle")
+        .then(response => {
+          console.log(response.data);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    getCurrBulb() {
+      axios
+        .get("http://localhost:3000/bulb")
+        .then(response => {
+          this.bulbOn = response.data;
+          console.log(bulbOn, "bulbOn");
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+  },
 };
 </script>
+
 <style scoped lang="scss">
 .Lighting {
   margin: 20px 40px;
