@@ -6,16 +6,16 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     temperature: 0,
+    isAuth: false,
   },
   mutations: {
     setTemperature(state, element) {
       state.temperature = element;
     },
-    setBulbOn(state, element) {
-      state.bulbOn = element;
+    setIsAuth(state, element) {
+      state.isAuth = element;
     },
   },
-
   getters: {
     getTemperature(state) {
       return state.temperature;

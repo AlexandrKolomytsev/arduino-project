@@ -4,7 +4,7 @@
       class="header"
       image="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
     >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon @click.stop="drawerToggler"></v-app-bar-nav-icon>
 
       <v-toolbar-title>Умные теплицы</v-toolbar-title>
 
@@ -28,7 +28,7 @@
       <v-btn icon>
         <v-icon>mdi-account-key</v-icon>
       </v-btn>
-      <v-btn icon>
+      <v-btn v-if="$store.state.isAuth" @click="logOut" icon>
         <v-icon>mdi-export</v-icon>
       </v-btn>
     </v-toolbar>
@@ -42,11 +42,13 @@
       <v-navigation-drawer v-model="drawer" absolute temporary>
         <v-list-item>
           <v-list-item-avatar>
-            <v-img src="https://randomuser.me/api/portraits/men/78.jpg"></v-img>
+            <v-img
+              src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+            ></v-img>
           </v-list-item-avatar>
 
           <v-list-item-content>
-            <v-list-item-title>John Leider</v-list-item-title>
+            <v-list-item-title>Пользователь</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
 
@@ -120,6 +122,15 @@ export default {
     },
     openWarningModal() {
       this.$refs.warningModal.open();
+    },
+    logOut() {
+      this.$store.commit("setIsAuth", false);
+      this.$router.push("/auth");
+    },
+    drawerToggler() {
+      if (this.$store.state.isAuth) {
+        this.drawer = !this.drawer;
+      }
     },
   },
 };
