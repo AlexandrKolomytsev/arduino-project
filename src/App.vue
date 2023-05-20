@@ -4,7 +4,7 @@
     <v-main>
       <router-view/>
     </v-main>
-    <Footer />
+    <Footer v-if="$store.state.isAuth" />
   </v-app>
 </template>
 
