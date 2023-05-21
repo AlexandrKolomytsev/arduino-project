@@ -1,17 +1,19 @@
 <template>
   <div class="Reports">
-    <h1>Reports</h1>
+    <br />
+    <h1>Прямая трансляция</h1>
+    <br />
     <HelloWorld />
   </div>
 </template>
 
 <script>
-import HelloWorld from '@/components/HelloWorld.vue'
+import HelloWorld from "@/components/HelloWorld.vue";
 
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
-    HelloWorld
-  }
-}
+    HelloWorld,
+  },
+};
 </script>

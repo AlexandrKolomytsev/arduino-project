@@ -1,19 +1,27 @@
 <template>
   <div>
-    <v-btn @click="testApi">
+    <!-- <v-btn @click="testApi">
       Тест api
     </v-btn>
     <v-btn @click="testApiPost">
       Тест api post
-    </v-btn>
+    </v-btn> -->
     <v-container>
       <v-carousel v-model="model">
         <v-carousel-item v-for="(color, i) in colors" :key="color">
-          <v-sheet :color="color" height="100%" tile>
+          <iframe
+            width="100%"
+            height="100%"
+            src="https://webglazok.com/live?s=t5M0mKWDO3avZqSpPJLYrsUB6Nf8ikCoUPorcKTiOSR5Afge?autoplay=1"
+            frameborder="0"
+            allowfullscreen
+            auto-pla
+          ></iframe>
+          <!-- <v-sheet :color="color" height="100%" tile>
             <v-row class="fill-height" align="center" justify="center">
               <div class="text-h2">Slide {{ i + 1 }}</div>
             </v-row>
-          </v-sheet>
+          </v-sheet> -->
         </v-carousel-item>
       </v-carousel>
     </v-container>
