@@ -6,6 +6,7 @@ const port = new SerialPort("COM3", { baudRate: 9600 });
 
 let isRelayOn = false;
 
+// переключатель лампочки
 app.get("/toggle", (req, res) => {
   isRelayOn = !isRelayOn; // Инвертируем флаг состояния реле
 

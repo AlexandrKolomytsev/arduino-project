@@ -8,6 +8,7 @@ export default new Vuex.Store({
     temperature: 0,
     isAuth: false,
   },
+  userInfo: {},
   mutations: {
     setTemperature(state, element) {
       state.temperature = element;
@@ -15,6 +16,9 @@ export default new Vuex.Store({
     setIsAuth(state, element) {
       state.isAuth = element;
     },
+    setUserInfo(state, element) {
+      state.userInfo = element;
+    }
   },
   getters: {
     getTemperature(state) {

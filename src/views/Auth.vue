@@ -35,7 +35,7 @@
             <v-btn
                 color="primary"
                 depressed
-                @click="getUsers"
+                @click="authUsers"
             >
               Войти
             </v-btn>
@@ -47,32 +47,47 @@
 </template>
 
 <script>
-import jsonData from '../auth.json';
+// import jsonData from '../auth.json';
+import axios from "axios";
+
 export default {
   name: "Auth",
   data() {
     return {
       login: '',
       password: '',
-      usersMas: jsonData,
+      usersMas: '',
       error: false,
     };
   },
+  mounted() {
+    this.getUsers()
+  },
   methods: {
-    getUsers() {
+    authUsers() {
+      console.log(this.usersMas, 'this.usersMas')
       for (const key in this.usersMas.users) {
-        for (const loginUser in this.usersMas.users[key]) {
-          console.log(this.usersMas.users[key][loginUser], 'this.usersMas.users')
-          if (loginUser === this.login && this.usersMas.users[key][loginUser] === this.password) {
-            //Чел авторизировался
-            console.log('авторизировался')
-            this.$store.commit('setIsAuth', true)
-            this.$router.push('/')
-          } else {
-            this.error = true
-          }
+        console.log(this.usersMas.users[key], 'this.usersMas.users[key]')
+        if (this.usersMas.users[key].login === this.login && this.usersMas.users[key].password === this.password) {
+          //Чел авторизировался
+          console.log('авторизировался')
+          this.$store.commit('setIsAuth', true)
+          this.$store.commit('setUserInfo', this.usersMas.users[key])
+          this.$router.push('/')
+        } else {
+          this.error = true
         }
       }
+    },
+    async getUsers() {
+      await axios.get('https://arduino-back-production.up.railway.app/getUsers')
+          .then((response) => {
+            console.log(response, 'response')
+            this.usersMas = response.data
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
     }
   }
 };

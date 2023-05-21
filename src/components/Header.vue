@@ -9,7 +9,7 @@
       <v-toolbar-title>Умные теплицы</v-toolbar-title>
 
       <v-spacer></v-spacer>
-      <v-icon color="error" size="x-large" @click="openErrorModal"
+      <v-icon v-if="false" color="error" size="x-large" @click="openErrorModal"
         >mdi-alert-circle</v-icon
       >
       <ErrorModal
@@ -17,7 +17,7 @@
         :title="errModalTitle"
         :body="errModalBody"
       />
-      <v-icon color="warning" size="x-large" @click="openWarningModal"
+      <v-icon v-if="false" color="warning" size="x-large" @click="openWarningModal"
         >mdi-alert-circle</v-icon
       >
       <WarningModal
@@ -39,8 +39,11 @@
       class="overflow-hidden"
       style="position: relative;"
     >
-      <v-navigation-drawer v-model="drawer" absolute temporary>
-        <v-list-item>
+      <router-link :to="'/user'">
+        <v-navigation-drawer
+          v-model="drawer" absolute temporary
+      >
+        <v-list-item class="user">
           <v-list-item-avatar>
             <v-img
               src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
@@ -48,7 +51,7 @@
           </v-list-item-avatar>
 
           <v-list-item-content>
-            <v-list-item-title>Пользователь</v-list-item-title>
+            <v-list-item-title>{{ $store.state.userInfo.name }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
 
@@ -70,6 +73,7 @@
           </div>
         </v-list>
       </v-navigation-drawer>
+      </router-link>
     </v-sheet>
   </div>
 </template>
@@ -152,6 +156,9 @@ a {
   .overflow-hidden {
     position: fixed;
     height: calc(100vh - 64px) !important; //override vuetify
+  }
+  .user {
+    cursor: pointer;
   }
 }
 </style>

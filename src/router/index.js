@@ -40,10 +40,22 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/Guide.vue')
   },
   {
+    path: '/user',
+    name: 'User',
+    meta: { requiresAuth: true },
+    component: () => import(/* webpackChunkName: "about" */ '../views/User.vue')
+  },
+  {
+    path: '/user/edit',
+    name: 'UserEdit',
+    meta: { requiresAuth: true },
+    component: () => import(/* webpackChunkName: "about" */ '../views/UserEdit.vue')
+  },
+  {
     path: '/auth',
     name: 'Auth',
     component: () => import(/* webpackChunkName: "about" */ '../views/Auth.vue')
-  }
+  },
 ]
 
 const router = new VueRouter({
