@@ -38,7 +38,7 @@ export default {
       { title: 'Кондиционирование', icon: 'mdi-weather-windy', to:'/conditioning' },
       { title: 'Освещение', icon: 'mdi-lightbulb-on-outline', to:'/lighting' },
       { title: 'Отопление', icon: 'mdi-temperature-celsius', to:'/heating' },
-      { title: 'Полив', icon: 'mdi-water', to:'/watering' },
+      { title: 'Справочник', icon: 'mdi-book-open-variant', to:'/guide' },
     ],
   }),
 }

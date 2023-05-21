@@ -34,10 +34,10 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/Heating.vue')
   },
   {
-    path: '/watering',
-    name: 'Watering',
+    path: '/guide',
+    name: 'Guide',
     meta: { requiresAuth: true },
-    component: () => import(/* webpackChunkName: "about" */ '../views/Watering.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/Guide.vue')
   },
   {
     path: '/auth',
