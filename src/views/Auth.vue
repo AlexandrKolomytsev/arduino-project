@@ -47,7 +47,7 @@
 </template>
 
 <script>
-// import jsonData from '../auth.json';
+import jsonData from '../auth.json';
 import axios from "axios";
 
 export default {
@@ -80,14 +80,15 @@ export default {
       }
     },
     async getUsers() {
-      await axios.get('https://arduino-back-production.up.railway.app/getUsers')
-          .then((response) => {
-            console.log(response, 'response')
-            this.usersMas = response.data
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+      // await axios.get('https://arduino-back-production.up.railway.app/getUsers')
+      //     .then((response) => {
+      //       console.log(response, 'response')
+      //       this.usersMas = response.data
+      //     })
+      //     .catch(function (error) {
+      //       console.log(error);
+      //     });
+      this.usersMas = jsonData
     }
   }
 };
