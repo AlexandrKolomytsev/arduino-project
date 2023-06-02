@@ -71,6 +71,7 @@ export default {
         if (this.usersMas.users[key].login === this.login && this.usersMas.users[key].password === this.password) {
           //Чел авторизировался
           console.log('авторизировался')
+          localStorage.setItem('isAuth', true);
           this.$store.commit('setIsAuth', true)
           this.$store.commit('setUserInfo', this.usersMas.users[key])
           this.$router.push('/')
@@ -80,7 +81,7 @@ export default {
       }
     },
     async getUsers() {
-      // await axios.get('https://arduino-back-production.up.railway.app/getUsers')
+      // await axios.get('https://arduino-back-production-ae97.up.railway.app/getUsers')
       //     .then((response) => {
       //       console.log(response, 'response')
       //       this.usersMas = response.data

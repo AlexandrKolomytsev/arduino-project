@@ -57,7 +57,7 @@ export default {
       foundUser.name = 'ВикаssssASFASF'
       console.log(this.usersMas, 'this.usersMas')
       await axios
-          .post("https://arduino-back-production.up.railway.app/editUsers", {
+          .post("https://arduino-back-production-ae97.up.railway.app/editUsers", {
             data: this.usersMas,
           })
           .then(function(response) {})
@@ -68,7 +68,8 @@ export default {
 
     },
     async getUsers() {
-      await axios.get('https://arduino-back-production.up.railway.app/getUsers')
+      await axios.get('https://arduino-back-production-ae97.up.railway.app/getUsers')
+          // https://arduino-back-production-ae97.up.railway.app/
           .then((response) => {
             console.log(response, 'response')
             this.usersMas = response.data.users

@@ -25,40 +25,26 @@
         </v-carousel-item>
       </v-carousel>
     </v-container>
+    <video id="video" width="640" height="480" autoplay></video>
   </div>
 </template>
 
 <script>
 import io from "socket.io";
 import axios from "axios";
+import { RTCRtpSender } from 'wrtc'
+
 export default {
   name: "HelloWorld",
   data: () => ({
     model: 0,
     colors: ["primary", "secondary", "yellow darken-2", "red", "orange"],
+    socket: null,
   }),
   mounted() {
     this.src();
-    this.buildGrid();
   },
   methods: {
-    buildGrid() {
-      const context = this.$refs.canvasGrid.getContext("2d");
-      for (let x = 0.5; x < 800; x += 50) {
-        context.moveTo(x, 0);
-        context.lineTo(x, 800);
-      }
-
-      for (let y = 0.5; y < 800; y += 50) {
-        context.moveTo(0, y);
-        context.lineTo(800, y);
-      }
-
-      context.lineWidth = 1;
-      context.globalAlpha = 1;
-      context.strokeStyle = "rgba(255, 0, 0, 1)";
-      context.stroke();
-    },
     src() {
       let recaptchaScript = document.createElement("script");
       recaptchaScript.setAttribute(
@@ -77,7 +63,7 @@ export default {
           });
     },*/
     // testApiPost() {
-    //   axios.post('https://arduino-back-production.up.railway.app/users', {
+    //   axios.post('https://arduino-back-production-ae97.up.railway.app/users', {
     //     name: 'fedянин',
     //     age: 'Iyyy',
     //   })

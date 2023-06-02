@@ -2,6 +2,12 @@ const http = require("http");
 const SerialPort = require("serialport");
 const Readline = SerialPort.parsers.Readline;
 const axios = require("axios");
+const express = require("express");
+
+
+const app = express();
+let isRelayOn = false;
+
 const port = new SerialPort("COM3", {
   baudRate: 9600,
   dataBits: 8,
@@ -24,30 +30,34 @@ parser.on("data", data => {
 setInterval(() => {
   console.log(dataTemp, "dataTemp");
   axios
-    // .post("https://arduino-back-production.up.railway.app/users", {
-    .post("http://localhost:3000/users", {
+    .post("https://arduino-back-production-ae97.up.railway.app/temp", {
+    //.post("http://localhost:3000/temp", {
       dataTemp: dataTemp.trim(),
     })
     .then(function(response) {})
     .catch(function(error) {});
 }, 2000);
 
-/*const server = http.createServer((req, res) => {
-    if (req.url === '/temp') {
-        // отправляем ответ клиенту
-        res.writeHead(200, {
-            'Content-Type': 'text/plain',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+// переключатель лампочки
+setInterval(() => {
+  axios
+      //.get("http://localhost:3000/bulb")
+      .get("https://arduino-back-production-ae97.up.railway.app/bulb")
+      .then(function(response) {
+        console.log(response.data.bulbOn, 'response')
+        let isRelayOn = response.data.bulbOn
+        const command = isRelayOn ? "1" : "0"
+        port.write(command, err => {
+          if (err) {
+            console.log("Error on write: ", err.message);
+          } else {
+            console.log('err')
+          }
         });
-        res.end(dataTemp);
-    } else {
-        // отправляем ответ клиенту, если путь не '/temp'
-        res.writeHead(404, { 'Content-Type': 'text/plain' });
-        res.end('Not found');
-    }
-});
+      })
+      .catch(function(error) {});
+}, 1200);
 
-server.listen(3000, () => {
-    console.log('Server started on port 3000');
-});*/
+app.listen(8080, () => {
+  console.log("Server is listening on port 8080.");
+});

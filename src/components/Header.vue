@@ -28,7 +28,7 @@
       <v-btn icon>
         <v-icon>mdi-account-key</v-icon>
       </v-btn>
-      <v-btn v-if="$store.state.isAuth" @click="logOut" icon>
+      <v-btn v-if="$store.state.isAuth || localAuth" @click="logOut" icon>
         <v-icon>mdi-export</v-icon>
       </v-btn>
     </v-toolbar>
@@ -128,15 +128,21 @@ export default {
       this.$refs.warningModal.open();
     },
     logOut() {
+      localStorage.setItem('isAuth', false);
       this.$store.commit("setIsAuth", false);
       this.$router.push("/auth");
     },
     drawerToggler() {
-      if (this.$store.state.isAuth) {
+      if (this.$store.state.isAuth || this.localAuth) {
         this.drawer = !this.drawer;
       }
     },
   },
+  computed: {
+    localAuth() {
+      return localStorage.getItem('isAuth')
+    }
+  }
 };
 </script>
 

@@ -53,6 +53,8 @@
       </div>
     </div>
 
+    <ChartAirTemperature />
+
     <v-row>
       <v-col>
         <v-sheet height="500">
@@ -81,8 +83,12 @@
 
 <script>
 import axios from "axios";
+import ChartAirTemperature from "../components/charts/ChartAirTemperature";
 
 export default {
+  components: {
+    ChartAirTemperature,
+  },
   data: () => ({
     today: "2019-01-10",
     tracked: {
@@ -112,23 +118,17 @@ export default {
   methods: {
     toggleBulb() {
       axios
-        .post("http://localhost:3000/bulb")
+        .post("https://arduino-back-production-ae97.up.railway.app/bulb")
+        //.post("http://localhost:3000/bulb")
         .then(response => {})
-        .catch(error => {
-          console.log(error);
-        });
-      axios
-        .get("http://localhost:8080/toggle")
-        .then(response => {
-          console.log(response.data);
-        })
         .catch(error => {
           console.log(error);
         });
     },
     getCurrBulb() {
       axios
-        .get("http://localhost:3000/bulb")
+        .get("https://arduino-back-production-ae97.up.railway.app/bulb")
+        //.get("http://localhost:3000/bulb")
         .then(response => {
           this.bulbOn = response.data;
           console.log(bulbOn, "bulbOn");

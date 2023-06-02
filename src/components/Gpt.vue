@@ -43,7 +43,7 @@ export default {
         data: message
       })
       this.loaderActive = true
-      await axios.post('https://arduino-back-production.up.railway.app/gpt', {
+      await axios.post('https://arduino-back-production-ae97.up.railway.app/gpt', {
         message: message
       })
           .then((response) => {
