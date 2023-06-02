@@ -32,7 +32,6 @@
 <script>
 import io from "socket.io";
 import axios from "axios";
-import { RTCRtpSender } from 'wrtc'
 
 export default {
   name: "HelloWorld",
