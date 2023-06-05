@@ -92,7 +92,7 @@ export default {
     return {
       drawer: null,
       items: [
-        { title: "Отчеты", icon: "mdi-paperclip", to: "/" },
+        { title: "Демонстрация", icon: "mdi-paperclip", to: "/" },
         {
           title: "Кондиционирование",
           icon: "mdi-weather-windy",

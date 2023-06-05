@@ -1,6 +1,6 @@
 <template>
   <v-footer class="bg-grey-lighten-1">
-    <v-row justify="center" no-gutters>
+    <v-row class="footer-item" justify="center" no-gutters>
       <div
           v-for="item in items"
           :key="item.title"
@@ -34,7 +34,7 @@ export default {
   name: "Footer",
   data: () => ({
     items: [
-      { title: 'Отчеты', icon: 'mdi-paperclip', to:'/' },
+      { title: 'Демонстрация', icon: 'mdi-paperclip', to:'/' },
       { title: 'Кондиционирование', icon: 'mdi-weather-windy', to:'/conditioning' },
       { title: 'Освещение', icon: 'mdi-lightbulb-on-outline', to:'/lighting' },
       { title: 'Отопление', icon: 'mdi-temperature-celsius', to:'/heating' },
@@ -47,5 +47,8 @@ export default {
 <style scoped>
 a {
   text-decoration: none;
+}
+.footer-item {
+  gap: 10px;
 }
 </style>

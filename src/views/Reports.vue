@@ -1,6 +1,6 @@
 <template>
   <div class="demo">
-    <h1>Отчеты</h1>
+    <h1>Демонстрация</h1>
     <v-switch class="switch" v-model="bulbOn" @change="toggleBulb" />
     <ChartAirTemperature />
   </div>
