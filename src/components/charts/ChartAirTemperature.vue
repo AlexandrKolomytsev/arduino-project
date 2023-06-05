@@ -154,7 +154,7 @@ export default {
     this.interval = this.getTemperature()
     this.interval = setInterval(() => {
       this.getTemperature()
-    }, 5000);
+    }, 3000);
   },
   beforeDestroy() {
     clearInterval(this.interval);
@@ -170,6 +170,8 @@ export default {
             this.populationData2 = [];
             console.log(response.data.slice(-61));
             const fullArray = response.data.slice(-61);
+            console.log(fullArray, 'fullArray')
+            this.curTemp = fullArray[fullArray.length-1].dataTemp
 
             fullArray.forEach((obj, i) => {
               this.populationData2.push({ arg: i, val: Number(obj.dataTemp) });

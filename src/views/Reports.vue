@@ -25,7 +25,7 @@ export default {
     this.getCurrBulb();
     this.bulbOn = setInterval(() => {
       this.getCurrBulb()
-    }, 1000)
+    }, 1200)
   },
   methods: {
     toggleBulb() {
