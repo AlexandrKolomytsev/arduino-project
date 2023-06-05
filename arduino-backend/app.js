@@ -45,13 +45,11 @@ setInterval(() => {
       .get("https://arduino-back-production-ae97.up.railway.app/bulb")
       .then(function(response) {
         console.log(response.data.bulbOn, 'response')
-        let isRelayOn = response.data.bulbOn
+        let isRelayOn = !response.data.bulbOn
         const command = isRelayOn ? "1" : "0"
         port.write(command, err => {
           if (err) {
             console.log("Error on write: ", err.message);
-          } else {
-            console.log('err')
           }
         });
       })

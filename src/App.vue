@@ -4,7 +4,7 @@
     <v-main>
       <router-view/>
     </v-main>
-    <Footer v-if="$store.state.isAuth || localAuth" />
+    <Footer v-if="$store.state.isAuth" />
   </v-app>
 </template>
 
@@ -23,10 +23,5 @@ export default {
   data: () => ({
     //
   }),
-  computed: {
-    localAuth() {
-      return localStorage.getItem('isAuth')
-    }
-  }
 };
 </script>

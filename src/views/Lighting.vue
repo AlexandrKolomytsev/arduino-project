@@ -15,17 +15,19 @@
       >
         <v-switch v-model="bulbOn" @change="toggleBulb" />
 
-        <v-btn value="left">
-          Фитосвет
-        </v-btn>
+        <div class="type-light">
+          <v-btn value="left">
+            Фитосвет
+          </v-btn>
 
-        <v-btn value="center">
-          Дневной свет
-        </v-btn>
+          <v-btn value="center">
+            Дневной свет
+          </v-btn>
 
-        <v-btn value="right">
-          Свет выключен
-        </v-btn>
+          <v-btn value="right">
+            Свет выключен
+          </v-btn>
+        </div>
       </v-btn-toggle>
     </div>
 
@@ -130,8 +132,8 @@ export default {
         .get("https://arduino-back-production-ae97.up.railway.app/bulb")
         //.get("http://localhost:3000/bulb")
         .then(response => {
-          this.bulbOn = response.data;
-          console.log(bulbOn, "bulbOn");
+          this.bulbOn = response.data.bulbOn;
+          console.log(this.bulbOn, "bulbOn");
         })
         .catch(error => {
           console.log(error);
@@ -167,9 +169,15 @@ export default {
       display: flex;
       justify-content: center;
     }
+    .type-light {
+      display: flex;
+      gap: 10px;
+    }
     .toggle-wrapper {
       margin: 30px auto;
       display: flex;
+      flex-direction: column;
+      align-items: center;
       justify-content: center;
     }
   }

@@ -65,8 +65,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  console.log(!localStorage.getItem('isAuth') || !store.state.isAuth, 'local')
-  if (to.meta.requiresAuth && (!localStorage.getItem('isAuth') && !store.state.isAuth)) {
+  if (to.meta.requiresAuth && !store.state.isAuth) {
     console.log(store.state, 'store')
     // Если маршрут требует аутентификации и пользователь не авторизован,
     // перенаправляем на страницу входа или на другую страницу, где можно выполнить аутентификацию.

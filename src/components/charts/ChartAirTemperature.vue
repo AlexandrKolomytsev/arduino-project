@@ -1,13 +1,16 @@
 <template>
   <div>
-    <v-btn class="cur-temp--fixed">
-      {{ curTemp }} °C
-      <v-tooltip activator="parent" location="end"
+    <div class="cur-temp--fixed-container">
+      <v-btn class="cur-temp--fixed">
+        {{ curTemp }} °C
+        <v-tooltip activator="parent" location="end"
         >Текущая температура</v-tooltip
-      >
-    </v-btn>
+        >
+      </v-btn>
+    </div>
     <v-card>
       <DxChart
+        class="chart"
         id="chart"
         :data-source="populationData2"
         title="График температуры за минуту"
@@ -148,61 +151,67 @@ export default {
     };
   },
   mounted() {
+    this.interval = this.getTemperature()
     this.interval = setInterval(() => {
-      axios
-        .get("https://arduino-back-production-ae97.up.railway.app/", {
-        /// .get("http://localhost:3000/", {
-          mode: "no-cors",
-        })
-        .then(response => {
-          this.populationData2 = [];
-          console.log(response.data.slice(-60));
-          const fullArray = response.data.slice(-60);
-
-          fullArray.forEach((obj, i) => {
-            this.populationData2.push({ arg: i, val: Number(obj.dataTemp) });
-          });
-          console.log(this.populationData2);
-
-          const lastTemperature = this.populationData2[
-            this.populationData2.length - 1
-          ];
-          store.commit("setTemperature", lastTemperature);
-
-          // if (response.data > 10 && response.data < 50) {
-          //   this.curTemp = response.data
-          //   this.masTempInSec.push(response.data)
-          //   if (this.populationData2.length <= 59) {
-          //     this.populationData2.push({ arg: this.argCounter++, val: response.data });
-          //   } else {
-          //     this.populationData2.shift();
-          //     this.populationData2.push({ arg: this.argCounter++, val: response.data });
-          //     this.populationData2.forEach((item, count) => {
-          //       item.arg--;
-          //       if (count === 59) {
-          //         this.argCounter--;
-          //       }
-          //     });
-          //   }
-          // }
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+      this.getTemperature()
     }, 5000);
   },
   beforeDestroy() {
     clearInterval(this.interval);
   },
-  methods: {},
+  methods: {
+    async getTemperature() {
+      await axios
+          .get("https://arduino-back-production-ae97.up.railway.app/", {
+            /// .get("http://localhost:3000/", {
+            mode: "no-cors",
+          })
+          .then(response => {
+            this.populationData2 = [];
+            console.log(response.data.slice(-61));
+            const fullArray = response.data.slice(-61);
+
+            fullArray.forEach((obj, i) => {
+              this.populationData2.push({ arg: i, val: Number(obj.dataTemp) });
+            });
+            console.log(this.populationData2);
+
+            const lastTemperature = this.populationData2[
+            this.populationData2.length - 1
+                ];
+            store.commit("setTemperature", lastTemperature);
+
+            // if (response.data > 10 && response.data < 50) {
+            //   this.curTemp = response.data
+            //   this.masTempInSec.push(response.data)
+            //   if (this.populationData2.length <= 59) {
+            //     this.populationData2.push({ arg: this.argCounter++, val: response.data });
+            //   } else {
+            //     this.populationData2.shift();
+            //     this.populationData2.push({ arg: this.argCounter++, val: response.data });
+            //     this.populationData2.forEach((item, count) => {
+            //       item.arg--;
+            //       if (count === 59) {
+            //         this.argCounter--;
+            //       }
+            //     });
+            //   }
+            // }
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+    }
+  },
 };
 </script>
 
 <style scoped lang="scss">
-.cur-temp--fixed {
-  position: absolute;
-  top: 0;
-  right: 0;
+.cur-temp--fixed-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
 }
 #chart {
   height: 440px;
