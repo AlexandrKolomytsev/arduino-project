@@ -24,7 +24,7 @@ let dataTemp = 0;
 const parser = port.pipe(new Readline());
 parser.on("data", data => {
   console.log(data);
-  dataTemp = data;
+  dataTemp = data.replace('\r', '').split(',');
 });
 
 setInterval(() => {
@@ -32,7 +32,8 @@ setInterval(() => {
   axios
     .post("https://arduino-back-production-ae97.up.railway.app/temp", {
     //.post("http://localhost:3000/temp", {
-      dataTemp: dataTemp.trim(),
+      dataWetness: dataTemp[0],
+      dataTemp: dataTemp[1],
     })
     .then(function(response) {})
     .catch(function(error) {});
@@ -41,7 +42,6 @@ setInterval(() => {
 // переключатель лампочки
 setInterval(() => {
   axios
-      //.get("http://localhost:3000/bulb")
       .get("https://arduino-back-production-ae97.up.railway.app/bulb")
       .then(function(response) {
         console.log(response.data.bulbOn, 'response')

@@ -1,8 +1,14 @@
 <template>
   <div>
-    <div class="cur-temp--fixed-container">
-      <v-btn class="cur-temp--fixed">
-        {{ curTemp }} °C
+    <v-btn class="cur-temp--fixed">
+      {{ curTemp }} °C
+      <v-tooltip activator="parent" location="end"
+      >Текущая температура</v-tooltip
+      >
+    </v-btn>
+    <div class="cur-wetness--fixed-container">
+      <v-btn class="cur-wetness--fixed">
+        {{ curWetness }} %
         <v-tooltip activator="parent" location="end"
         >Текущая температура</v-tooltip
         >
@@ -13,7 +19,7 @@
         class="chart"
         id="chart"
         :data-source="populationData2"
-        title="График температуры за минуту"
+        title="График влажности за минуту"
       >
         <DxArgumentAxis :tick-interval="10">
           <DxLabel format="decimal" />
@@ -45,108 +51,11 @@ export default {
   },
   data() {
     return {
-      populationData: [
-        {
-          arg: "01:00",
-          val: 4,
-        },
-        {
-          arg: "02:00",
-          val: 3,
-        },
-        {
-          arg: "03:00",
-          val: 3,
-        },
-        {
-          arg: "04:00",
-          val: -1,
-        },
-        {
-          arg: "05:00",
-          val: -3,
-        },
-        {
-          arg: "06:00",
-          val: 3,
-        },
-        {
-          arg: "07:00",
-          val: 5,
-        },
-        {
-          arg: "08:00",
-          val: 6,
-        },
-        {
-          arg: "09:00",
-          val: 6,
-        },
-        {
-          arg: "10:00",
-          val: 6,
-        },
-        {
-          arg: "11:00",
-          val: 9,
-        },
-        {
-          arg: "12:00",
-          val: 10,
-        },
-        {
-          arg: "13:00",
-          val: 14,
-        },
-        {
-          arg: "14:00",
-          val: 15,
-        },
-        {
-          arg: "15:00",
-          val: 16,
-        },
-        {
-          arg: "16:00",
-          val: 16,
-        },
-        {
-          arg: "17:00",
-          val: 14,
-        },
-        {
-          arg: "18:00",
-          val: 12,
-        },
-        {
-          arg: "19:00",
-          val: 9,
-        },
-        {
-          arg: "20:00",
-          val: 8,
-        },
-        {
-          arg: "21:00",
-          val: 7,
-        },
-        {
-          arg: "22:00",
-          val: 6,
-        },
-        {
-          arg: "23:00",
-          val: 5,
-        },
-        {
-          arg: "24:00",
-          val: 5,
-        },
-      ],
       populationData2: [],
       interval: "",
       masTempInSec: [],
       argCounter: 1,
+      curWetness: 0,
       curTemp: 0,
     };
   },
@@ -163,7 +72,7 @@ export default {
     async getTemperature() {
       await axios
           .get("https://arduino-back-production-ae97.up.railway.app/", {
-            /// .get("http://localhost:3000/", {
+          //.get("http://localhost:3000/", {
             mode: "no-cors",
           })
           .then(response => {
@@ -171,10 +80,11 @@ export default {
             console.log(response.data.slice(-61));
             const fullArray = response.data.slice(-61);
             console.log(fullArray, 'fullArray')
+            this.curWetness = fullArray[fullArray.length-1].dataWetness
             this.curTemp = fullArray[fullArray.length-1].dataTemp
 
             fullArray.forEach((obj, i) => {
-              this.populationData2.push({ arg: i, val: Number(obj.dataTemp) });
+              this.populationData2.push({ arg: i, val: Number(obj.dataWetness) });
             });
             console.log(this.populationData2);
 
@@ -183,22 +93,6 @@ export default {
                 ];
             store.commit("setTemperature", lastTemperature);
 
-            // if (response.data > 10 && response.data < 50) {
-            //   this.curTemp = response.data
-            //   this.masTempInSec.push(response.data)
-            //   if (this.populationData2.length <= 59) {
-            //     this.populationData2.push({ arg: this.argCounter++, val: response.data });
-            //   } else {
-            //     this.populationData2.shift();
-            //     this.populationData2.push({ arg: this.argCounter++, val: response.data });
-            //     this.populationData2.forEach((item, count) => {
-            //       item.arg--;
-            //       if (count === 59) {
-            //         this.argCounter--;
-            //       }
-            //     });
-            //   }
-            // }
           })
           .catch(function(error) {
             console.log(error);
@@ -209,11 +103,17 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.cur-temp--fixed-container {
+.cur-wetness--fixed-container {
   width: 100%;
   display: flex;
   justify-content: center;
   margin: 20px 0;
+  gap: 20px;
+}
+.cur-temp--fixed {
+  position: fixed;
+  top: 100px;
+  right: 20px;
 }
 #chart {
   height: 440px;
