@@ -16,15 +16,15 @@
         <v-switch v-model="bulbOn" @change="toggleBulb" />
 
         <div class="type-light">
-          <v-btn value="left">
+          <v-btn class="type" value="left">
             Фитосвет
           </v-btn>
 
-          <v-btn value="center">
+          <v-btn class="type" value="center">
             Дневной свет
           </v-btn>
 
-          <v-btn value="right">
+          <v-btn class="type" value="right">
             Свет выключен
           </v-btn>
         </div>
@@ -144,6 +144,16 @@ export default {
 </script>
 
 <style scoped lang="scss">
+h1{
+  @media only screen and (max-width: 768px) {
+    font-size: 18px;
+  }
+}
+h2{
+  @media only screen and (max-width: 768px) {
+    font-size: 14px;
+  }
+}
 .Lighting {
   margin: 20px 40px;
   .cur-light-time {
@@ -172,6 +182,10 @@ export default {
     .type-light {
       display: flex;
       gap: 10px;
+      @media only screen and (max-width: 768px) {
+    flex-direction: column;
+  }
+  }
     }
     .toggle-wrapper {
       margin: 30px auto;
@@ -181,5 +195,5 @@ export default {
       justify-content: center;
     }
   }
-}
+
 </style>

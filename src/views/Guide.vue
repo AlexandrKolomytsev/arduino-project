@@ -20,4 +20,9 @@ export default {
 .guide {
   margin: 20px 40px;
 }
+h1{
+  @media only screen and (max-width: 768px) {
+    font-size: 18px;
+  }
+}
 </style>

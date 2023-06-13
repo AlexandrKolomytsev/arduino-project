@@ -61,6 +61,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+h1{
+  @media only screen and (max-width: 768px) {
+    font-size: 12px;
+    padding: 5px;
+  }
+}
 .wrapper {
   margin: 0 auto;
   margin: 0 20% 30px 20%;
@@ -78,6 +84,10 @@ input {
   padding: 10px;
   border: 2px solid black;
   border-radius: 5px;
+  @media only screen and (max-width: 768px) {
+    font-size: 10px;
+    padding: 5px;
+  }
 }
 input:focus-visible {
   border: 2px solid black;
@@ -87,6 +97,12 @@ button {
   height: 40px;
   background-color: powderblue;
   padding: 10px;
+  border-radius: 15%;
+  @media only screen and (max-width: 768px) {
+    font-size: 10px;
+    padding: 5px;
+    height: 20px;
+  }
 }
 .messageBox {
   height: fit-content;
@@ -97,12 +113,19 @@ button {
   margin-top: 20px;
   padding: 5%;
   position: relative;
+  @media only screen and (max-width: 768px) {
+    font-size: 10px;
+    margin: 0;
+  }
 
   .loader {
     position: absolute;
     left: 50%;
     transform: translate(50%, 50%);
     bottom: 60px;
+    @media only screen and (max-width: 768px) {
+    bottom: 20px;
+  }
   }
 }
 .messageFromUser {

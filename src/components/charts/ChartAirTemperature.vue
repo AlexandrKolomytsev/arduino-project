@@ -114,6 +114,7 @@ export default {
   position: fixed;
   top: 100px;
   right: 20px;
+  z-index: 1;
 }
 #chart {
   height: 440px;

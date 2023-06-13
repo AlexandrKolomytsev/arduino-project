@@ -54,8 +54,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
-h1 {
+h1{
   text-align: center;
+  @media only screen and (max-width: 768px) {
+    font-size: 18px;
+  }
 }
 .switch {
   margin: 20px auto 0;
